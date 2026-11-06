@@ -28,77 +28,78 @@ parser.add_argument("--export", action="store_true")
 #reading and parsing the user arguments from Sys.argv[]
 user_argument = parser.parse_args()
 
-
-if user_argument.list and user_argument.env :
-    with open (path, "r") as f:
-        meny.ShowserverinEnv(f,user_argument.env)
-
-elif  user_argument.list: 
-    with open (path, "r") as f:
-        meny.printallserver(f)
-
-elif user_argument.controll_all:
-    kontroller.controll_All(path)
+with open (path, "r") as f : 
     
-elif user_argument.controll: 
-    kontroller.controllByName(path, keyword=user_argument.controll)
+    if user_argument.list and user_argument.env :
+        with open (path, "r") as f:
+            meny.ShowserverinEnv(f,user_argument.env)
 
-elif user_argument.export:
-    print ("CSV Report Has been Exported")
-    CSVwritter.wrtieCsvFile(path) 
+    elif  user_argument.list: 
+            meny.printallserver(f)
 
-
-
-else :
-    while True :
-        user_input = meny.visa_meny()
+    elif user_argument.controll_all:
+        kontroller.controll_All(path)
         
-        if user_input == 1: 
-            with open (path, "r") as f : 
-                meny.printallserver(f)
-        
-        
-        elif user_input == 2 :
-            env = input ("Which environment ?:  ")
-            with open(path, "r") as f:
+    elif user_argument.controll: 
+        kontroller.controllByName(path, keyword=user_argument.controll)
+
+    elif user_argument.export:
+        print ("CSV Report Has been Exported")
+        CSVwritter.wrtieCsvFile(path) 
+
+
+
+    else :
+        while True :
+            user_input = meny.visa_meny()
+            
+            if user_input == 1: 
+                    meny.printallserver(f)
+            
+            
+            elif user_input == 2 :
+                environment_list= ["prod", "test", "dev"]
+
+                env = input ("Which environment ?:  ")
+                if not env in environment_list:
+                    print ("invalid Env!!")
+                else :
                     meny.ShowserverinEnv(f, env=env)
-        
-        
-        elif user_input == 3: 
             
-            name = input("Enter name: ")
-            address = input("Enter address: ")
-            environment = input ("Environment tag: ")
-            role = input ("Enter role: ")
+            
+            elif user_input == 3: 
+                
+                name = input("Enter name: ")
+                address = input("Enter address: ")
+                environment = input ("Environment tag: ")
+                role = input ("Enter role: ")
 
-            with open (path, "r") as f: 
+                 
                 meny.add_server(path,f=f, name=name, address=address, environment=environment, role=role)
-                
-                
-                
-        elif user_input == 4:
-            input_adress = input("Enter the Hsot name: ")
-
-            with open(path, "r") as f:
+                    
+                    
+                    
+            elif user_input == 4:
+                input_adress = input("Enter the Hsot name: ")
                 meny.remove_server(f,path,input_address=input_adress)
+                    
+                    
+            elif user_input == 5: 
+                keyword  = input ("Enter server name: ")
+                kontroller.controllByName(path, keyword=keyword)
                 
                 
-        elif user_input == 5: 
-            keyword  = input ("Enter server name: ")
-            kontroller.controllByName(path, keyword=keyword)
-            
-            
-    
-        elif user_input==6 :
-            kontroller.controll_All(path)
-    
-        elif user_input== 7:
-            print ("CSV Report Has been Exported")
-            CSVwritter.wrtieCsvFile(path)  
         
-        elif user_input == 8:
-            print ("Bye ")
-            break
+            elif user_input==6 :
+                kontroller.controll_All(path)
+        
+            elif user_input== 7:
+                print ("CSV Report Has been Exported")
+                CSVwritter.wrtieCsvFile(path)  
+            
+            elif user_input == 8:
+                print ("Bye ")
+                break
 
 
 
