@@ -28,43 +28,48 @@ parser.add_argument("--export", action="store_true")
 #reading and parsing the user arguments from Sys.argv[]
 user_argument = parser.parse_args()
 
-with open (path, "r") as f : 
+ 
     
-    if user_argument.list and user_argument.env :
+if user_argument.list and user_argument.env :
         with open (path, "r") as f:
             meny.ShowserverinEnv(f,user_argument.env)
 
-    elif  user_argument.list: 
+elif  user_argument.list: 
+    with open (path, "r") as f :
             meny.printallserver(f)
 
-    elif user_argument.controll_all:
+elif user_argument.controll_all:
+    with open (path, "r") as f :
         kontroller.controll_All(path)
         
-    elif user_argument.controll: 
+elif user_argument.controll: 
+    with open (path, "r") as f :
         kontroller.controllByName(path, keyword=user_argument.controll)
 
-    elif user_argument.export:
+elif user_argument.export:
+     
         print ("CSV Report Has been Exported")
         CSVwritter.wrtieCsvFile(path) 
 
 
 
-    else :
+else :
         while True :
             user_input = meny.visa_meny()
             
             if user_input == 1: 
+                with open (path, "r") as f :
                     meny.printallserver(f)
             
             
             elif user_input == 2 :
-                environment_list= ["prod", "test", "dev"]
-
-                env = input ("Which environment ?:  ")
-                if not env in environment_list:
+             environment_list= ["prod", "test", "dev"]
+             env = input ("Which environment ?:  ")
+             if not env in environment_list:
                     print ("invalid Env!!")
-                else :
-                    meny.ShowserverinEnv(f, env=env)
+             else :
+                 with open (path, "r") as f :
+                    meny.ShowserverinEnv(f, env=env) 
             
             
             elif user_input == 3: 
@@ -74,14 +79,15 @@ with open (path, "r") as f :
                 environment = input ("Environment tag: ")
                 role = input ("Enter role: ")
 
-                 
-                meny.add_server(path,f=f, name=name, address=address, environment=environment, role=role)
-                    
+                with open (path, "r") as f :
+                    meny.add_server(path,f=f, name=name, address=address, environment=environment, role=role)
+                        
                     
                     
             elif user_input == 4:
                 input_adress = input("Enter the Hsot name: ")
-                meny.remove_server(f,path,input_address=input_adress)
+                with open (path, "r") as f :
+                 meny.remove_server(f,path,input_address=input_adress)
                     
                     
             elif user_input == 5: 
