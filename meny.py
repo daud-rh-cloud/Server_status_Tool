@@ -40,15 +40,24 @@ def ShowserverinEnv(f, env):
         
         
 def add_server(path, f, name,address,environment,role):
+    data = json.load(f)
     environment_list= ["prod", "test", "dev"]
     environment = environment.lower()
-    if not environment in environment_list:
+    
+    while not environment in environment_list:
         print (f"Invalid Env Name! Please choose from {environment_list}")
-        return None  
-    else :  
+        environment = input("provide a new name: ")
+    else : 
+        pass 
+    
+    if name :
+        for server in data:
+            if server.get("name") == name: 
+                 print ("ServerName Already taken")
+        
+    else :
         pass 
         
-    data = json.load(f)
     
     data.append({"name": name, "address": address, "environment": environment, "role": role, "status": "unknown", "last_checked": ""})
     data= json.dumps (data, indent=2 )
