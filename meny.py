@@ -50,13 +50,14 @@ def add_server(path, f, name,address,environment,role):
     else : 
         pass 
     
+    
     if name :
         for server in data:
             if server.get("name") == name: 
-                 print ("ServerName Already taken")
-        
-    else :
-        pass 
+                print ("ServerName Already taken")
+                return None 
+     
+    
         
     
     data.append({"name": name, "address": address, "environment": environment, "role": role, "status": "unknown", "last_checked": ""})

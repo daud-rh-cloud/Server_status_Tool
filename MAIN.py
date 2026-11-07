@@ -7,53 +7,57 @@ import kontroller
 import argparse 
 import CSVwritter
 
-
-if "INVENTORY_DATAFILE" in os.environ:
-    path = os.environ.get("INVENTORY_DATAFIL")
-else:
-    path = "server.json"
+def main ():
     
-
-
-### COMMAND LINE 
-
-parser = argparse.ArgumentParser()
-
-parser.add_argument("--list", "--lista",action= "store_true" )
-parser.add_argument("--env", "--miljo", choices=meny.ShowAlllenv(path), help="--list + --env [name] ")
-parser.add_argument("--controll-all", "--kontrollera-alla", action = "store_true")
-parser.add_argument("--controll","--kontrollera", metavar="name")
-parser.add_argument("--export", action="store_true")
-
-#reading and parsing the user arguments from Sys.argv[]
-user_argument = parser.parse_args()
-
- 
-    
-if user_argument.list and user_argument.env :
-        with open (path, "r") as f:
-            meny.ShowserverinEnv(f,user_argument.env)
-
-elif  user_argument.list: 
-    with open (path, "r") as f :
-            meny.printallserver(f)
-
-elif user_argument.controll_all:
-    with open (path, "r") as f :
-        kontroller.controll_All(path)
+    if "INVENTORY_DATAFILE" in os.environ:
+        path = os.environ.get("INVENTORY_DATAFILE")
+    else:
+        path = "server.json"
         
-elif user_argument.controll: 
-    with open (path, "r") as f :
-        kontroller.controllByName(path, keyword=user_argument.controll)
-
-elif user_argument.export:
-     
-        print ("CSV Report Has been Exported")
-        CSVwritter.wrtieCsvFile(path) 
+    if not os.path.exists(path):
+        print ("Source File Doesn't Exist!" )
+    else: 
+        pass 
 
 
+    ### COMMAND LINE 
+    parser = argparse.ArgumentParser()
 
-else :
+    parser.add_argument("--list", "--lista",action= "store_true", help= "Lists All Server" )
+    parser.add_argument("--env", "--miljo", choices=meny.ShowAlllenv(path), help="--list --env [name]/ (List server in Env XYZ ")
+    parser.add_argument("--controll-all", "--kontrollera-alla", action = "store_true", help=("Cheaks All server status" ))
+    parser.add_argument("--controll","--kontrollera", metavar="name", help=("Cheaks server Specefic servers Status"))
+    parser.add_argument("--export", action="store_true",help="Exports CSV Report")
+
+    #reading and parsing the user arguments from Sys.argv[]
+    user_argument = parser.parse_args()
+
+    
+        
+    if user_argument.list and user_argument.env :
+            with open (path, "r") as f:
+                meny.ShowserverinEnv(f,user_argument.env)
+
+    elif  user_argument.list: 
+        with open (path, "r") as f :
+                meny.printallserver(f)
+
+    elif user_argument.controll_all:
+        with open (path, "r") as f :
+            kontroller.controll_All(path)
+            
+    elif user_argument.controll: 
+        with open (path, "r") as f :
+            kontroller.controllByName(path, keyword=user_argument.controll)
+
+    elif user_argument.export:
+        
+            print ("CSV Report Has been Exported")
+            CSVwritter.wrtieCsvFile(path) 
+
+
+
+    else :
         while True :
             user_input = meny.visa_meny()
             
@@ -110,3 +114,5 @@ else :
 
 
 
+if __name__ == "__main__":
+    main()

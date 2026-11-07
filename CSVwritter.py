@@ -5,7 +5,7 @@ import os
 
 
 
-date = datetime.datetime.now().strftime("%d/%m/%Y,%H:%M")
+date = datetime.datetime.now().strftime("%d-%m-%Y,%H:%M")
 report_file = f"report.csv.{date}"
 
 
@@ -19,7 +19,7 @@ def wrtieCsvFile(path):
         pass 
     
     
-    with open ("report_file", "w")as z:
+    with open (report_file, "w")as z:
         writter = csv.writer(z)
         
         header = data[0].keys()

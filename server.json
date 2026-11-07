@@ -4,8 +4,8 @@
     "address": "example.com",
     "environment": "prod",
     "role": "webserver",
-    "status": "unknown",
-    "last_checked": ""
+    "status": "UP",
+    "last_checked": "07-11-2026, 16:11"
   },
   {
     "name": "db01",
@@ -36,8 +36,8 @@
     "address": "da",
     "environment": "dev",
     "role": "da",
-    "status": "unknown",
-    "last_checked": ""
+    "status": "DOwn",
+    "last_checked": "07-11-2026, 16:11"
   },
   {
     "name": "webss",
@@ -54,5 +54,37 @@
     "role": "dd",
     "status": "unknown",
     "last_checked": ""
+  },
+  {
+    "name": "web01",
+    "address": "sds",
+    "environment": "dev",
+    "role": "ds",
+    "status": "DOwn",
+    "last_checked": "07-11-2026, 16:11"
+  },
+  {
+    "name": "web01",
+    "address": "dfsd",
+    "environment": "dev",
+    "role": "dd",
+    "status": "DOwn",
+    "last_checked": "07-11-2026, 16:11"
+  },
+  {
+    "name": "ass",
+    "address": "ds",
+    "environment": "dev",
+    "role": "dssdd",
+    "status": "unknown",
+    "last_checked": ""
+  },
+  {
+    "name": "web01",
+    "address": "ds",
+    "environment": "dev",
+    "role": "dd",
+    "status": "DOwn",
+    "last_checked": "07-11-2026, 16:11"
   }
 ]
