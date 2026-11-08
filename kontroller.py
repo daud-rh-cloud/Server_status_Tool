@@ -16,7 +16,7 @@ def controll_All(path):
             hostname = line["address"]
             x = subprocess.run(["ping", "-c" ,"1" ,hostname ] )
             returncode = x.returncode
-            exit_code = None
+            exit_code = 0
             try  : 
                 if returncode == 0: 
                     print (line["name"], "service is UP!.. ")
@@ -45,7 +45,7 @@ def controllByName (path, keyword ):
         now =  datetime.now().strftime("%Y-%m-%d %H:%M")
         new_file = []
         selected_name = None
-        exit_code=None
+        exit_code=0
         
         for line in data:
             if line.get("name") == keyword:
