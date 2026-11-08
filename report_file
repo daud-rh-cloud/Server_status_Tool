@@ -1,8 +1,0 @@
-name,address,environment,role,status,last_checked
-web01,example.com,prod,webserver,DOWN,"05/11/2026, 18:25"
-db01,127.0.0.1,prod,database,UP,"05/11/2026, 18:25"
-test01,192.0.2.10,test,testserver,DOWN,"05/11/2026, 18:25"
-demo ,demo,demo,demo,DOWN,"05/11/2026, 18:25"
-a,a,a,a,DOWN,"05/11/2026, 18:25"
-w,w,w,w,DOWN,"05/11/2026, 18:25"
-addad,ads,sds,sdss,DOWN,"05/11/2026, 18:25"
