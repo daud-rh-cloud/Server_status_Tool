@@ -9,8 +9,8 @@ import CSVwritter
 
 def main ():
     
-    if "INVENTORY_DATAFILE" in os.environ:
-        path = os.environ.get("INVENTORY_DATAFILE")
+    if "INVENTORY_DATAFIL" in os.environ:
+        path = os.environ.get("INVENTORY_DATAFIL")
     else:
         path = "server.json"
         

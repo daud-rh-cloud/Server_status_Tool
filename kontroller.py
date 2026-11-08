@@ -9,7 +9,7 @@ def controll_All(path):
     with open(path, "r") as f : 
         data  = json.load(f)
         
-        now = datetime.now().strftime("%d-%-%Y, %H:%M")
+        now = datetime.now().strftime("%Y-%m-%d %H:%M")
         new_file = []
         
         for line in data:
@@ -41,7 +41,7 @@ def controllByName (path, keyword ):
     with open (path, "r") as f : 
         data  = json.load(f) 
         
-        now =  datetime.now().strftime("%d-%m-%Y, %H:%M")
+        now =  datetime.now().strftime("%Y-%m-%d %H:%M")
         new_file = []
         
         for line in data:
