@@ -1,18 +1,18 @@
 # Redogörelse  
 
-## 1. Three constructs
+# 1. Three constructs
 
-### While loop
+# While loop
 
 In my MAIN.py I used while loop to wrap the entire menu list is because a while loop allow us to keep running and asking the user until some condition is true or false, in that case the user has to type 8 (exit) for this to break.
 
-### If/else
+# If/else
 
 We used if else in almost all the files but some example is to attach each user input with code logic, to check the input validation and perform the logic, all 3 used if and else.
 
-### Function with parameter and return
+# Function with parameter and return
 
-`ShowAlllenv` takes path as argument to see and return all the env names. The reason it returns instead of printing is because we want some other object to use it in their logic instead of printing to terminal.
+ShowAlllenv takes path as argument to see and return all the env names. The reason it returns instead of printing is because we want some other object to use it in their logic instead of printing to terminal.
 
 ## 2. Why a list of dictionaries?
 
@@ -22,7 +22,7 @@ A dict allows us to call each key by name and associate value with them. We have
 
 JSON is convenient and matches the style for my program's memory, and CSV is good for people because it can be used in spreadsheets.
 
-## 4. Modules and functions
+# 4. Modules and functions
 
 We have `MAIN.py`, `meny.py`, `kontroller.py` and `CSVwritter.py`. Menu holds the menu list and other functions when each choice is selected. Kontroller handles the ping of all the servers and returns a return code and updates the source file by up and down and time on last updated, and CSV is responsible for writing the source file to the CSV format in a different folder Reports with time format. And MAIN.py is where we bring all of them together and connect them.
 

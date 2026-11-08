@@ -24,6 +24,7 @@ def controll_All(path):
                 else:
                     print (line["name"], "service is DOWN!.. ")
                     new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "down",  "last_checked": now})
+                    sys,exit(1)
             except Exception as e  :
                 print (e)
     
