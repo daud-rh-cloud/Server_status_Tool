@@ -16,7 +16,7 @@ def controll_All(path):
             hostname = line["address"]
             x = subprocess.run(["ping", "-c" ,"1" ,hostname ] )
             returncode = x.returncode
-            
+            exit_code = None
             try  : 
                 if returncode == 0: 
                     print (line["name"], "service is UP!.. ")
@@ -24,14 +24,14 @@ def controll_All(path):
                 else:
                     print (line["name"], "service is DOWN!.. ")
                     new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "down",  "last_checked": now})
-                    sys.exit(1)
+                    exit_code = 1
             except Exception as e  :
                 print (e)
-    
     new_file = json.dumps(new_file, indent=2 )
     with open (path , "w") as f:
         f.write (new_file)
-        
+        sys.exit(exit_code)
+
         
         
         
@@ -45,14 +45,16 @@ def controllByName (path, keyword ):
         now =  datetime.now().strftime("%Y-%m-%d %H:%M")
         new_file = []
         selected_name = None
+        exit_code=None
         
         for line in data:
             if line.get("name") == keyword:
                 selected_name = keyword
         
         if selected_name == None: 
-             print("The Server Does't exist!")    
-             sys.exit(1)
+             print("The Server Does't exist!")   
+             exit_code = 1 
+             sys.exit(exit_code)
              return None
           
         for line in data:
@@ -69,7 +71,6 @@ def controllByName (path, keyword ):
                                 
                                 print (line["name"], "service is Down!.. ")
                                 new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "down",  "last_checked": now})
-                                sys.exit(1)
                         except Exception as e: 
                             print (e)
                     
@@ -77,7 +78,8 @@ def controllByName (path, keyword ):
                             #if this is not the desired server, then write it back as it was 
                             new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : line ["status"],  "last_checked": line["last_checked"]})
          
-        
+       
         new_file = json.dumps(new_file, indent=2 )
         with open (path, 'w')as f: 
             f.write (new_file)
+            sys.exit(exit_code)
