@@ -9,7 +9,7 @@ def controll_All(path):
     with open(path, "r") as f : 
         data  = json.load(f)
         
-        now = datetime.now().strftime("%d/%m/%Y, %H:%M")
+        now = datetime.now().strftime("%d-%-%Y, %H:%M")
         new_file = []
         
         for line in data:
@@ -20,10 +20,10 @@ def controll_All(path):
             try  : 
                 if returncode == 0: 
                     print (line["name"], "service is UP!.. ")
-                    new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "UP",  "last_checked": now})
+                    new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "up",  "last_checked": now})
                 else:
                     print (line["name"], "service is DOWN!.. ")
-                    new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "DOWN",  "last_checked": now})
+                    new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "down",  "last_checked": now})
             except Exception as e  :
                 print (e)
     
@@ -53,10 +53,10 @@ def controllByName (path, keyword ):
                 try : 
                     if returncode == 0:
                         print (line["name"], "service is UP!.. ")
-                        new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "UP",  "last_checked": now})
+                        new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "up",  "last_checked": now})
                     else :
                         print (line["name"], "service is Down!.. ")
-                        new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "DOwn",  "last_checked": now})
+                        new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "down",  "last_checked": now})
                        
                 except Exception as e: 
                     print (e)

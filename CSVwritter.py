@@ -6,7 +6,13 @@ import os
 
 
 date = datetime.datetime.now().strftime("%d-%m-%Y,%H:%M")
-report_file = f"report.csv.{date}"
+report_file = f"Reports/inventering_{date}.csv"
+reportfolder = "Reports"
+
+if os.path.exists(reportfolder):
+    pass
+else: 
+    os.mkdir(reportfolder)
 
 
 def wrtieCsvFile(path):

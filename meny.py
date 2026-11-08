@@ -21,7 +21,7 @@ def visa_meny():
 def printallserver (f):
     data = json.load(f)
     for line in data : 
-        print (f"-- Name:{line["name"]}, Address:{line["address"]}, Environment:{line["environment"]}, Role:{line["role"]}, status: {line["status"]} , Last checked :{line["last_checked"]} ")
+        print (f"-- Name:{line["name"]:<8}, Address:{line["address"]:<15}, Environment:{line["environment"]:<8}, Role:{line["role"]:<8}, status: {line["status"]:<8} , Last checked :{line["last_checked"]:<8} ")
         print ()
         
         
@@ -69,13 +69,17 @@ def add_server(path, f, name,address,environment,role):
 
 
 
-def remove_server(f,path,input_address):
+def remove_server(f,path,name,input_address):
     newdata = []
     data = json.load(f)
     for line in data:
-        if line["address"] != input_address:
+        if line["address"] != input_address and line["name"] != name: 
          newdata.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : line["status"],  "last_checked": line["last_checked"]})
-    
+        elif line["address"] != input_address and line["name"] == name: 
+         print ("No Host match with this name!")
+        elif line["address"]== input_address and line["name"] != name: 
+            print ("No host with thats name Exist! ")
+            
     newdata = json.dumps(newdata, indent=2)
     with open (path, "w") as f :
         f.write(newdata)

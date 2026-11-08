@@ -15,50 +15,56 @@ def main ():
         path = "server.json"
         
     if not os.path.exists(path):
-        print ("Source File Doesn't Exist!" )
+        path = "server.json"
+        if not os.path.exists(path):
+         print ("Source File Doesn't Exist!" )
+         return None
     else: 
         pass 
 
 
+
+
+    try :
     ### COMMAND LINE 
-    parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser()
 
-    parser.add_argument("--list", "--lista",action= "store_true", help= "Lists All Server" )
-    parser.add_argument("--env", "--miljo", choices=meny.ShowAlllenv(path), help="--list --env [name]/ (List server in Env XYZ ")
-    parser.add_argument("--controll-all", "--kontrollera-alla", action = "store_true", help=("Cheaks All server status" ))
-    parser.add_argument("--controll","--kontrollera", metavar="name", help=("Cheaks server Specefic servers Status"))
-    parser.add_argument("--export", action="store_true",help="Exports CSV Report")
+        parser.add_argument("--list", "--lista",action= "store_true", help= "Lists All Server" )
+        parser.add_argument("--env", "--miljo", choices=meny.ShowAlllenv(path), help="--list --env [name]/ (List server in Env XYZ ")
+        parser.add_argument("--controll-all", "--kontrollera-alla", action = "store_true", help=("Cheaks All server status" ))
+        parser.add_argument("--controll","--kontrollera", metavar="name", help=("Cheaks server Specefic servers Status"))
+        parser.add_argument("--export", action="store_true",help="Exports CSV Report")
 
-    #reading and parsing the user arguments from Sys.argv[]
-    user_argument = parser.parse_args()
+        #reading and parsing the user arguments from Sys.argv[]
+        user_argument = parser.parse_args()
 
-    
         
-    if user_argument.list and user_argument.env :
-            with open (path, "r") as f:
-                meny.ShowserverinEnv(f,user_argument.env)
+      
+        if user_argument.list and user_argument.env :
+                with open (path, "r") as f:
+                    meny.ShowserverinEnv(f,user_argument.env)
 
-    elif  user_argument.list: 
-        with open (path, "r") as f :
-                meny.printallserver(f)
+        elif  user_argument.list: 
+            with open (path, "r") as f :
+                    meny.printallserver(f)
 
-    elif user_argument.controll_all:
-        with open (path, "r") as f :
-            kontroller.controll_All(path)
+        elif user_argument.controll_all:
+            with open (path, "r") as f :
+                kontroller.controll_All(path)
+                
+        elif user_argument.controll: 
+            with open (path, "r") as f :
+                kontroller.controllByName(path, keyword=user_argument.controll)
+
+        elif user_argument.export:
             
-    elif user_argument.controll: 
-        with open (path, "r") as f :
-            kontroller.controllByName(path, keyword=user_argument.controll)
-
-    elif user_argument.export:
-        
-            print ("CSV Report Has been Exported")
-            CSVwritter.wrtieCsvFile(path) 
+                print ("CSV Report Has been Exported")
+                CSVwritter.wrtieCsvFile(path) 
 
 
 
-    else :
-        while True :
+        else :
+          while True :
             user_input = meny.visa_meny()
             
             if user_input == 1: 
@@ -89,9 +95,10 @@ def main ():
                     
                     
             elif user_input == 4:
-                input_adress = input("Enter the Hsot name: ")
+                input_adress = input("Enter the Hsot adress: ")
+                input_name = input("Enter the server name: ")
                 with open (path, "r") as f :
-                 meny.remove_server(f,path,input_address=input_adress)
+                 meny.remove_server(f,path,name=input_name, input_address=input_adress)
                     
                     
             elif user_input == 5: 
@@ -110,9 +117,9 @@ def main ():
             elif user_input == 8:
                 print ("Bye ")
                 break
-
-
-
+    except Exception as e :
+        print (e)
 
 if __name__ == "__main__":
     main()
+    
