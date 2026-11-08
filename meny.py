@@ -21,7 +21,7 @@ def visa_meny():
 def printallserver (f):
     data = json.load(f)
     for line in data : 
-        print (f"-- Name:{line["name"]:<8}, Address:{line["address"]:<15}, Environment:{line["environment"]:<8}, Role:{line["role"]:<8}, status: {line["status"]:<8} , Last checked :{line["last_checked"]:<8} ")
+        print (f"-- Name:{line["name"]:<11}, Address:{line["address"]:<11}, Environment:{line["environment"]:>11}, Role:{line["role"]:<11}, status: {line["status"]:<11} , Last checked :{line["last_checked"]:<11} ")
         print ()
         
         

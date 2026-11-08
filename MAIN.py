@@ -15,8 +15,6 @@ def main ():
         path = "server.json"
         
     if not os.path.exists(path):
-        path = "server.json"
-        if not os.path.exists(path):
          print ("Source File Doesn't Exist!" )
          return None
     else: 
@@ -126,5 +124,4 @@ def main ():
 
 if __name__ == "__main__":
     main()
-    
     

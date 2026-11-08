@@ -1,73 +1,70 @@
 # Server Inventory Tool
 
-A small command-line tool for keeping track of servers: what they are called, where they live, which environment they belong to, and whether they answer on the network.
+A small Python tool for keeping track of servers: their name, address, environment (dev, test or prod), role, and whether they respond on the network.
 
-I built it as the final assignment in the Python course. The idea is the kind of tool a DevOps team writes for itself when a big monitoring system is overkill: a list of servers in a JSON file, a way to ping them, and a CSV report you can hand to someone else.
-
-You can use it in two ways:
-
-- **Menu mode** - start it without arguments and pick options from a text menu.
-- **CLI mode** - pass a flag, the program does one thing and exits. This is the mode you would use in a bash script or a CI/CD pipeline.
-
-Both modes call the same functions underneath, so a server checked from the menu is checked exactly the same way as one checked from the command line.
+The server list is saved in a JSON file, servers are checked with `ping`, and a report can be exported as a CSV file that opens in any spreadsheet program.
 
 ## What it can do
 
-- List all servers, or only the ones in one environment (`dev`, `test`, `prod`)
-- Add a server (the environment is validated, and duplicate names are refused)
-- Remove a server (removing a `prod` server asks for an extra confirmation)
-- Check one server or all servers with `ping`
-- Save the result (`up` / `down`) and the time of the check
-- Export everything to a CSV report
+- Show all servers, or only the servers in one environment
+- Add a new server (the environment is checked, and duplicate names are not allowed)
+- Remove a server (production servers ask for an extra confirmation)
+- Check whether one server or all servers respond to ping
+- Save the result (up or down) and the time of the check
+- Export all servers to a CSV report with the date and time in the file name
 
-Every change is saved to the JSON file right away, so nothing is lost if the program is closed in the middle of something.
+All changes are saved right away, so nothing is lost when the program is closed.
 
-No external packages are needed. Everything comes from the standard library.
+## Two ways to use it
 
-## Menu mode
+**Menu mode:** start the program without any arguments. A numbered menu appears. Pick an option by typing its number. The menu keeps coming back until you choose to exit. Invalid choices give a message and the menu is shown again.
 
-You get this menu, and it keeps coming back until you pick 8:
+**Command-line mode:** start the program with an option. It does that one job and then exits. This mode is useful in scripts, scheduled jobs and CI/CD pipelines.
 
-```
---- Server Inventory Tool ---
-1. Show all servers
-2. Show servers in an environment
-3. Add a server
-4. Remove a server
-5. Check a server
-6. Check all servers
-7. Export report as CSV
-8. Exit
-```
+To see every available option and what it does, run the main file with `--help`.
 
-## CLI mode
+Both modes use the same code underneath, so a task does exactly the same thing whichever mode you use.
 
-| Command | What it does |
-|---|---|
-| `python3 MAIN.py --help` | Shows all flags with a short description |
-| `python3 MAIN.py --list` | Prints all servers |
-| `python3 MAIN.py --list --env prod` | Prints only servers in prod |
-| `python3 MAIN.py --controll web01` | Pings web01 and saves the result |
-| `python3 MAIN.py --controll-all` | Pings every server and saves the results |
-| `python3 MAIN.py --export` | Writes a CSV report to `reports/` |
+## Exit codes
 
-## Choosing the data file
+In command-line mode the program ends with an exit code that scripts can read:
 
-By default the program reads and writes `server.json` in the project folder.
+- `0` means everything went fine
+- `1` means a checked server is down, or the requested server does not exist
 
-To use another file, set the environment variable `INVENTORY_DATAFILE = YOURFILE`
+Check the exit code right after a command with `echo $?`.
+
+## Requirements
+
+- Python 3.12 or newer
+- Linux or macOS (the check uses the `ping` command). On Windows, use WSL or a Linux container.
+- No extra packages. Everything comes from the Python standard library.
+
+Some networks block ping. A server shown as down may be blocked by the network rather than switched off.
+
+## How to run it
+
+1. Clone the repository.
+2. Open a terminal in the project folder.
+3. Run the main file with Python 3 to start menu mode, or add an option to use command-line mode.
+
+## Data file
+
+The servers are stored in a JSON file in the project folder. You can choose a different file by setting an environment variable before starting the program. The program reads the variable at startup, and if it is not set, the default file is used.
+
+If the data file does not exist, the program starts with an empty server list instead of crashing.
+
+## Reports
+
+Reports are saved as CSV files in a reports folder, which is created automatically if it is missing. Each report has the date and time in its file name. Reports are not stored in Git.
 
 ## Project structure
 
-```
-Server_status_Tool/
-├── MAIN.py          entry point - reads the arguments and picks menu or CLI mode
-├── meny.py          the text menu and the functions that print servers
-├── storage.py       loads and saves the JSON file
-├── kontroller.py    pings servers and updates their status
-├── CSVwritter.py    writes the CSV report
-├── server.json      the server data
-├── .gitignore
-├── README.md
-└── REDOGORELSE.md   written explanation of the code
-```
+The code is split into separate modules, each with one job:
+
+- an entry point that reads the command-line options and starts the right mode
+- a module for the text menu and showing, adding and removing servers
+- a module that checks servers with ping
+- a module that writes the CSV report
+- a JSON file with the server data
+- a written explanation of the code (redogörelse)

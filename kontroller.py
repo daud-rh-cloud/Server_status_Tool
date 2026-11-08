@@ -24,7 +24,7 @@ def controll_All(path):
                 else:
                     print (line["name"], "service is DOWN!.. ")
                     new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "down",  "last_checked": now})
-                    sys,exit(1)
+                    sys.exit(1)
             except Exception as e  :
                 print (e)
     
@@ -52,6 +52,7 @@ def controllByName (path, keyword ):
         
         if selected_name == None: 
              print("The Server Does't exist!")    
+             sys.exit(1)
              return None
           
         for line in data:
@@ -65,9 +66,10 @@ def controllByName (path, keyword ):
                                 print (line["name"], "service is UP!.. ")
                                 new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "up",  "last_checked": now})
                             else :
+                                
                                 print (line["name"], "service is Down!.. ")
                                 new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "down",  "last_checked": now})
-                            
+                                sys.exit(1)
                         except Exception as e: 
                             print (e)
                     
