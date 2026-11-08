@@ -1,4 +1,4 @@
- Server Inventory Tool
+Server Inventory Tool
 
 A small command-line tool for keeping track of servers: what they are called, where they live, which environment they belong to, and whether they answer on the network.
 
@@ -21,10 +21,10 @@ Export everything to a CSV report
 
 Every change is saved to the JSON file right away, so nothing is lost if the program is closed in the middle of something.
 
- 
 No external packages are needed. Everything comes from the standard library.
 
 Menu mode
+
 You get this menu, and it keeps coming back until you pick 8:
 
 --- Server Inventory Tool ---
@@ -36,10 +36,6 @@ You get this menu, and it keeps coming back until you pick 8:
 6. Check all servers
 7. Export report as CSV
 8. Exit
-
-
-
-
 CLI mode
 Command	What it does
 python3 MAIN.py --help	Shows all flags with a short description
@@ -48,12 +44,10 @@ python3 MAIN.py --list --env prod	Prints only servers in prod
 python3 MAIN.py --controll web01	Pings web01 and saves the result
 python3 MAIN.py --controll-all	Pings every server and saves the results
 python3 MAIN.py --export	Writes a CSV report to reports/
-
-
-
 Choosing the data file
 
 By default the program reads and writes server.json in the project folder.
+
 To use another file, set the environment variable INVENTORY_DATAFILE = YOURFILE
 
 Project structure
@@ -67,5 +61,4 @@ Server_status_Tool/
 ├── .gitignore
 ├── README.md
 └── REDOGORELSE.md   written explanation of the code
-
 
