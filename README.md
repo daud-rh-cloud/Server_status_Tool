@@ -47,4 +47,27 @@ You get this menu, and it keeps coming back until you pick 8:
 | `python3 MAIN.py --help` | Shows all flags with a short description |
 | `python3 MAIN.py --list` | Prints all servers |
 | `python3 MAIN.py --list --env prod` | Prints only servers in prod |
-| `python3 MAIN.py --controll web01` |
+| `python3 MAIN.py --controll web01` | Pings web01 and saves the result |
+| `python3 MAIN.py --controll-all` | Pings every server and saves the results |
+| `python3 MAIN.py --export` | Writes a CSV report to `reports/` |
+
+## Choosing the data file
+
+By default the program reads and writes `server.json` in the project folder.
+
+To use another file, set the environment variable `INVENTORY_DATAFILE = YOURFILE`
+
+## Project structure
+
+```
+Server_status_Tool/
+├── MAIN.py          entry point - reads the arguments and picks menu or CLI mode
+├── meny.py          the text menu and the functions that print servers
+├── storage.py       loads and saves the JSON file
+├── kontroller.py    pings servers and updates their status
+├── CSVwritter.py    writes the CSV report
+├── server.json      the server data
+├── .gitignore
+├── README.md
+└── REDOGORELSE.md   written explanation of the code
+```
