@@ -72,14 +72,15 @@ def add_server(path, f, name,address,environment,role):
 def remove_server(f,path,name,input_address):
     newdata = []
     data = json.load(f)
+    
     for line in data:
-        if line["address"] != input_address and line["name"] != name: 
-         newdata.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : line["status"],  "last_checked": line["last_checked"]})
-        elif line["address"] != input_address and line["name"] == name: 
+        if  line["address"] != input_address and line["name"] == name: 
          print ("No Host match with this name!")
         elif line["address"]== input_address and line["name"] != name: 
             print ("No host with thats name Exist! ")
-            
+        elif line["address"] != input_address : 
+         newdata.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : line["status"],  "last_checked": line["last_checked"]})
+         
     newdata = json.dumps(newdata, indent=2)
     with open (path, "w") as f :
         f.write(newdata)
