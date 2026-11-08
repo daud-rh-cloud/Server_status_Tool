@@ -67,12 +67,12 @@ def main ():
           while True :
             user_input = meny.visa_meny()
             
-            if user_input == 1: 
+            if user_input == "1": 
                 with open (path, "r") as f :
                     meny.printallserver(f)
             
             
-            elif user_input == 2 :
+            elif user_input == "2" :
              environment_list= ["prod", "test", "dev"]
              env = input ("Which environment ?:  ")
              if not env in environment_list:
@@ -82,7 +82,7 @@ def main ():
                     meny.ShowserverinEnv(f, env=env) 
             
             
-            elif user_input == 3: 
+            elif user_input == "3": 
                 
                 name = input("Enter name: ")
                 address = input("Enter address: ")
@@ -94,32 +94,37 @@ def main ():
                         
                     
                     
-            elif user_input == 4:
+            elif user_input == "4":
                 input_adress = input("Enter the Hsot adress: ")
                 input_name = input("Enter the server name: ")
                 with open (path, "r") as f :
                  meny.remove_server(f,path,name=input_name, input_address=input_adress)
                     
                     
-            elif user_input == 5: 
+            elif user_input == "5": 
                 keyword  = input ("Enter server name: ")
                 kontroller.controllByName(path, keyword=keyword)
                 
                 
         
-            elif user_input==6 :
+            elif user_input=="6" :
                 kontroller.controll_All(path)
         
-            elif user_input== 7:
+            elif user_input== "7":
                 print ("CSV Report Has been Exported")
                 CSVwritter.wrtieCsvFile(path)  
             
-            elif user_input == 8:
+            elif user_input == "8":
                 print ("Bye ")
                 break
+            
+            else:
+                print ("invalid input! ")
+                continue
     except Exception as e :
         print (e)
 
 if __name__ == "__main__":
     main()
+    
     

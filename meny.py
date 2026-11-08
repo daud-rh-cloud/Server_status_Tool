@@ -13,7 +13,7 @@ def visa_meny():
         7. Export report as CSV
         8. Exit
         """)
-    return int(user_input)
+    return (user_input)
 
 
 
@@ -76,11 +76,14 @@ def remove_server(f,path,name,input_address):
     for line in data:
         if  line["address"] != input_address and line["name"] == name: 
          print ("No Host match with this name!")
+         return None 
         elif line["address"]== input_address and line["name"] != name: 
             print ("No host with thats name Exist! ")
+            return None
         elif line["address"] != input_address : 
          newdata.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : line["status"],  "last_checked": line["last_checked"]})
-         
+    
+    print (f"Server {name} has been Removed")
     newdata = json.dumps(newdata, indent=2)
     with open (path, "w") as f :
         f.write(newdata)
