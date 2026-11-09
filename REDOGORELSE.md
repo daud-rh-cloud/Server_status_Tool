@@ -50,6 +50,9 @@ I used many standard libraries and some of them are `json`, `csv`, `subprocess`,
 
 **.gitignore:** So it ignores the rough files like .csv, report or other files that don't need to be in my repo when someone else is running the code.
 
+I pass ping as a list, `["ping", "-c", "1", hostname]`. Then no shell is used, so a strange address can't run as a command. The exit code decides if the server is up or down.
+
+
 _(third example not answered yet)_
 
 ## 7. Sources and tools

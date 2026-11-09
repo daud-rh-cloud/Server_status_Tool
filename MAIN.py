@@ -50,11 +50,11 @@ def main ():
 
         elif user_argument.controll_all:
             with open (path, "r") as f :
-                kontroller.Controll_All(path)
+                kontroller.controll_all(path)
                 
         elif user_argument.controll: 
             with open (path, "r") as f :
-                kontroller.ControllByName(path, keyword=user_argument.controll)
+                kontroller.controll_by_name(path, keyword=user_argument.controll)
 
         elif user_argument.export:
             
@@ -103,11 +103,11 @@ def main ():
                     
             elif user_input == "5": 
                 keyword  = input ("Enter server name: ")
-                kontroller.ControllByName(path, keyword=keyword)
+                kontroller.controll_by_name(path, keyword=keyword)
                 
                 
             elif user_input=="6" :
-                kontroller.Controll_All(path)
+                kontroller.controll_all(path)
         
             elif user_input== "7":
                 print ("CSV Report Has been Exported")

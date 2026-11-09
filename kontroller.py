@@ -5,7 +5,7 @@ import sys
 from datetime import datetime
 
 
-def Controll_All(path):
+def controll_all(path):
     with open(path, "r") as f : 
         data  = json.load(f)
         
@@ -39,7 +39,7 @@ def Controll_All(path):
         
         
         
-def ControllByName (path, keyword ):
+def controll_by_name (path, keyword ):
     with open (path, "r") as f : 
         data  = json.load(f) 
         
