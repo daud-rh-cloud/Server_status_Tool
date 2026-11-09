@@ -18,6 +18,7 @@ ShowAlllenv takes path as argument to see and return all the env names. The reas
 
 A dict allows us to call each key by name and associate value with them. We have a list also so we can have multiple elements stored in a single object. Each value in the dict is saved as string.
 
+
 ## 3. Why JSON for storage but CSV for the report?
 
 JSON is convenient and matches the style for my program's memory, and CSV is good for people because it can be used in spreadsheets.
@@ -52,8 +53,6 @@ I used many standard libraries and some of them are `json`, `csv`, `subprocess`,
 
 I pass ping as a list, `["ping", "-c", "1", hostname]`. Then no shell is used, so a strange address can't run as a command. The exit code decides if the server is up or down.
 
-
-_(third example not answered yet)_
 
 ## 7. Sources and tools
 
