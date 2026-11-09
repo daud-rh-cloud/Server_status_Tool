@@ -31,7 +31,7 @@ def controll_all(path):
     new_file = json.dumps(new_file, indent=2 )
     with open (path , "w") as f:
         f.write (new_file)
-        return exit_code == 1   # return either TRUE OR FALSE 
+        sys.exit(exit_code)
 
         
         
@@ -55,7 +55,7 @@ def controll_by_name (path, keyword ):
         if selected_name == None: 
              print("The Server Does't exist!")   
              exit_code = 1 
-             return exit_code == 1
+             sys.exit(exit_code)
            
         for line in data:
                     if line["name"] == keyword :
@@ -82,4 +82,4 @@ def controll_by_name (path, keyword ):
         new_file = json.dumps(new_file, indent=2 )
         with open (path, 'w')as f: 
             f.write (new_file)
-            return exit_code == 1
+            sys.exit(exit_code)
