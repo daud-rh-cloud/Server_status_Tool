@@ -11,12 +11,12 @@ def controll_All(path):
         
         now = datetime.now().strftime("%Y-%m-%d %H:%M")
         new_file = []
-        
+        exit_code = 0
         for line in data:
             hostname = line["address"]
             x = subprocess.run(["ping", "-c" ,"1" ,hostname ] )
             returncode = x.returncode
-            exit_code = 0
+            
             try  : 
                 if returncode == 0: 
                     print (line["name"], "service is UP!.. ")
@@ -27,6 +27,7 @@ def controll_All(path):
                     exit_code = 1
             except Exception as e  :
                 print (e)
+                
     new_file = json.dumps(new_file, indent=2 )
     with open (path , "w") as f:
         f.write (new_file)
@@ -54,7 +55,6 @@ def controllByName (path, keyword ):
         if selected_name == None: 
              print("The Server Does't exist!")   
              exit_code = 1 
-             sys.exit(exit_code)
              return None
           
         for line in data:
@@ -68,9 +68,9 @@ def controllByName (path, keyword ):
                                 print (line["name"], "service is UP!.. ")
                                 new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "up",  "last_checked": now})
                             else :
-                                
                                 print (line["name"], "service is Down!.. ")
                                 new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "down",  "last_checked": now})
+                                exit_code = 1
                         except Exception as e: 
                             print (e)
                     
