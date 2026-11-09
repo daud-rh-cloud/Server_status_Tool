@@ -5,11 +5,11 @@ import sys
 from datetime import datetime
 
 
-def controll_All(path):
+def Controll_All(path):
     with open(path, "r") as f : 
         data  = json.load(f)
         
-        now = datetime.now().strftime("%Y-%m-%d_%H%M")
+        now = datetime.now().strftime("%Y-%m-%d %H:%M")
         new_file = []
         exit_code = 0
         for line in data:
@@ -39,7 +39,7 @@ def controll_All(path):
         
         
         
-def controllByName (path, keyword ):
+def ControllByName (path, keyword ):
     with open (path, "r") as f : 
         data  = json.load(f) 
         

@@ -30,7 +30,7 @@ def ShowserverinEnv(f, env):
         data = json.load(f)
         for line in data:
             if line["environment"] == env:
-                print (f"Name:{line["name"]}, Address:{line["address"]}, Environment:{line["environment"]}, Role:{line["role"]}, status: {line["status"]} , Last checked :{line["last_checked"]} ")
+                print (f"Name:{line["name"]:<11}, Address:{line["address"]:<11}, Environment:{line["environment"]:<11}, Role:{line["role"]:<11}, status: {line["status"]:<11} , Last checked :{line["last_checked"]:<11} ")
             else :
                 continue 
         

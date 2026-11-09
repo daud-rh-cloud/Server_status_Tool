@@ -6,7 +6,7 @@ import subprocess
 import kontroller 
 import argparse 
 import CSVwritter
-
+ 
 def main ():
     
     if "INVENTORY_DATAFIL" in os.environ:
@@ -15,8 +15,9 @@ def main ():
         path = "server.json"
         
     if not os.path.exists(path):
+        with open(path, "w") as f:
+         f.write("[]")
          print ("Source File Doesn't Exist!" )
-         return None
     else: 
         pass 
 
@@ -24,6 +25,7 @@ def main ():
 
 
     try :
+
     ### COMMAND LINE 
         parser = argparse.ArgumentParser()
 
@@ -48,11 +50,11 @@ def main ():
 
         elif user_argument.controll_all:
             with open (path, "r") as f :
-                kontroller.controll_All(path)
+                kontroller.Controll_All(path)
                 
         elif user_argument.controll: 
             with open (path, "r") as f :
-                kontroller.controllByName(path, keyword=user_argument.controll)
+                kontroller.ControllByName(path, keyword=user_argument.controll)
 
         elif user_argument.export:
             
@@ -101,11 +103,11 @@ def main ():
                     
             elif user_input == "5": 
                 keyword  = input ("Enter server name: ")
-                kontroller.controllByName(path, keyword=keyword)
+                kontroller.ControllByName(path, keyword=keyword)
                 
                 
             elif user_input=="6" :
-                kontroller.controll_All(path)
+                kontroller.Controll_All(path)
         
             elif user_input== "7":
                 print ("CSV Report Has been Exported")
