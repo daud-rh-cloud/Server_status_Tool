@@ -43,7 +43,7 @@ def controll_by_name (path, keyword ):
     with open (path, "r") as f : 
         data  = json.load(f) 
         
-        now =  datetime.now().strftime("%Y-%m-%d_%H%M")
+        now =  datetime.now().strftime("%Y-%m-%d %H:%M")
         new_file = []
         selected_name = None
         exit_code=0

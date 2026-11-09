@@ -1,9 +1,9 @@
-import meny
+import menu
 import os 
 import sys 
 from argparse import ArgumentParser
 import subprocess 
-import kontroller 
+import controller 
 import argparse 
 import CSVwritter
  
@@ -30,7 +30,7 @@ def main ():
         parser = argparse.ArgumentParser()
 
         parser.add_argument("--list", "--lista",action= "store_true", help= "Lists All Server" )
-        parser.add_argument("--env", "--miljo", choices=meny.ShowAlllenv(path), help="--list --env [name]/ (List server in Env XYZ ")
+        parser.add_argument("--env", "--miljo", choices=menu.ShowAlllenv(path), help="--list --env [name]/ (List server in Env XYZ ")
         parser.add_argument("--controll-all", "--kontrollera-alla", action = "store_true", help=("Cheaks All server status" ))
         parser.add_argument("--controll","--kontrollera", metavar="name", help=("Cheaks server Specefic servers Status"))
         parser.add_argument("--export", action="store_true",help="Exports CSV Report")
@@ -42,19 +42,19 @@ def main ():
       
         if user_argument.list and user_argument.env :
                 with open (path, "r") as f:
-                    meny.ShowserverinEnv(f,user_argument.env)
+                    menu.ShowserverinEnv(f,user_argument.env)
 
         elif  user_argument.list: 
             with open (path, "r") as f :
-                    meny.printallserver(f)
+                    menu.printallserver(f)
 
         elif user_argument.controll_all:
             with open (path, "r") as f :
-                kontroller.controll_all(path)
+                controller.controll_all(path)
                 
         elif user_argument.controll: 
             with open (path, "r") as f :
-                kontroller.controll_by_name(path, keyword=user_argument.controll)
+                controller.controll_by_name(path, keyword=user_argument.controll)
 
         elif user_argument.export:
             
@@ -65,11 +65,11 @@ def main ():
 
         else :
           while True :
-            user_input = meny.visa_meny()
+            user_input = menu.visa_meny()
             
             if user_input == "1": 
                 with open (path, "r") as f :
-                    meny.printallserver(f)
+                    menu.printallserver(f)
             
             
             elif user_input == "2" :
@@ -79,7 +79,7 @@ def main ():
                     print ("invalid Env!!")
              else :
                  with open (path, "r") as f :
-                    meny.ShowserverinEnv(f, env=env) 
+                    menu.ShowserverinEnv(f, env=env) 
             
             
             elif user_input == "3": 
@@ -90,7 +90,7 @@ def main ():
                 role = input ("Enter role: ")
 
                 with open (path, "r") as f :
-                    meny.add_server(path,f=f, name=name, address=address, environment=environment, role=role)
+                    menu.add_server(path,f=f, name=name, address=address, environment=environment, role=role)
                         
                     
                     
@@ -98,16 +98,16 @@ def main ():
                 input_adress = input("Enter the Hsot adress: ")
                 input_name = input("Enter the server name: ")
                 with open (path, "r") as f :
-                 meny.remove_server(f,path,name=input_name, input_address=input_adress)
+                 menu.remove_server(f,path,name=input_name, input_address=input_adress)
                     
                     
             elif user_input == "5": 
                 keyword  = input ("Enter server name: ")
-                kontroller.controll_by_name(path, keyword=keyword)
+                controller.controll_by_name(path, keyword=keyword)
                 
                 
             elif user_input=="6" :
-                kontroller.controll_all(path)
+                controller.controll_all(path)
         
             elif user_input== "7":
                 print ("CSV Report Has been Exported")
