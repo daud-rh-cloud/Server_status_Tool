@@ -73,22 +73,40 @@ def remove_server(f,path,name,input_address):
     newdata = []
     data = json.load(f)
     
-    for line in data:
-        if  line["address"] != input_address and line["name"] == name: 
-         print ("No Host match with this name!")
-         return None 
-        elif line["address"]== input_address and line["name"] != name: 
-            print ("No host with thats name Exist! ")
-            return None
-        elif line["address"] != input_address : 
-         newdata.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : line["status"],  "last_checked": line["last_checked"]})
+    searching_adress = None
     
-    print (f"Server {name} has been Removed")
-    newdata = json.dumps(newdata, indent=2)
-    with open (path, "w") as f :
-        f.write(newdata)
-
-
+    for line in data :
+        if line ["address"] == input_address:
+            searching_adress = input_address 
+        else :
+            continue
+            
+    
+    
+    if searching_adress != None:
+     for line in data:
+        if line ["environment"] == "prod":
+            user_confirmation = input ("Are you Sure you want to remove it? y/n?")
+            if user_confirmation == "n":
+                return None 
+        else :
+                
+            if  line["address"] != input_address and line["name"] == name: 
+                print ("No Host match with this name!")
+                return None 
+            elif line["address"]== input_address and line["name"] != name: 
+                print ("No host with thats name Exist! ")
+                return None
+            elif line["address"] != input_address and user_confirmation == "y":             
+                newdata.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : line["status"],  "last_checked": line["last_checked"]})
+        
+            print (f"Server {name} has been Removed")
+            newdata = json.dumps(newdata, indent=2)
+            with open (path, "w") as f :
+                f.write(newdata)
+     else :
+         print ("No such Host exist ")
+        
 
 
 

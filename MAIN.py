@@ -104,7 +104,6 @@ def main ():
                 kontroller.controllByName(path, keyword=keyword)
                 
                 
-        
             elif user_input=="6" :
                 kontroller.controll_All(path)
         

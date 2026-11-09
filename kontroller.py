@@ -55,8 +55,8 @@ def controllByName (path, keyword ):
         if selected_name == None: 
              print("The Server Does't exist!")   
              exit_code = 1 
-             return None
-          
+             sys.exit(exit_code)
+           
         for line in data:
                     if line["name"] == keyword :
                         hostname = line["address"]
