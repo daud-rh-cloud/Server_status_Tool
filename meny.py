@@ -84,11 +84,12 @@ def remove_server(f,path,name,input_address):
     
     
     if searching_adress != None:
+        
      user_confirmation = "y"
      for line in data:
         if line ["environment"] == "prod" and line ["name"] == name:
             user_confirmation = input ("Are you Sure you want to remove it? y/n?")
-            if user_confirmation == "n":
+            if user_confirmation != "y":
                 print("Removal cancelled")
                 return None 
         
@@ -102,13 +103,18 @@ def remove_server(f,path,name,input_address):
                 return None
             elif line["address"] != input_address and user_confirmation == "y":             
                 newdata.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : line["status"],  "last_checked": line["last_checked"]})
-     else :
-         print ("No such Host exist ")
-    
-    print (f"Server {name} has been Removed")
-    newdata = json.dumps(newdata, indent=2)
-    with open (path, "w") as f :
+            
+     print (f"Server {name} has been Removed")
+     newdata = json.dumps(newdata, indent=2)
+     with open (path, "w") as f :
         f.write(newdata)
+    
+    
+    else :
+         print ("No such Host exist ")
+         return None 
+     
+ 
         
 
 

@@ -5,7 +5,7 @@ import os
 
 
 
-date = datetime.datetime.now().strftime("%d-%m-%Y_%H%M")
+date = datetime.datetime.now().strftime("%Y-%m-%d_%H%M")
 report_file = f"Reports/inventering_{date}.csv"
 reportfolder = "Reports"
 

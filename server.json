@@ -21,7 +21,7 @@
     "environment": "test",
     "role": "testserver",
     "status": "down",
-    "last_checked": "2026-11-09 10:20"
+    "last_checked": "2026-11-09 10:14"
   },
   {
     "name": "dev01",
