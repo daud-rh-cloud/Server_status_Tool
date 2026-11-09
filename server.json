@@ -1,1 +1,34 @@
-"[\n  {\n    \"name\": \"web01\",\n    \"address\": \"example.com\",\n    \"environment\": \"prod\",\n    \"role\": \"webserver\",\n    \"status\": \"up\",\n    \"last_checked\": \"2026-11-09 10:17\"\n  }\n]"
+[
+  {
+    "name": "web01",
+    "address": "example.com",
+    "environment": "prod",
+    "role": "webserver",
+    "status": "up",
+    "last_checked": "2026-11-09 10:17"
+  },
+  {
+    "name": "db01",
+    "address": "127.0.0.1",
+    "environment": "prod",
+    "role": "database",
+    "status": "unknown",
+    "last_checked": ""
+  },
+  {
+    "name": "test01",
+    "address": "192.0.2.10",
+    "environment": "test",
+    "role": "testserver",
+    "status": "down",
+    "last_checked": "2026-11-09 10:20"
+  },
+  {
+    "name": "dev01",
+    "address": "localhost",
+    "environment": "dev",
+    "role": "devserver",
+    "status": "unknown",
+    "last_checked": ""
+  }
+]
