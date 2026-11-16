@@ -42,12 +42,6 @@ Check the exit code right after a command with `echo $?`.
 
 Some networks block ping. A server shown as down may be blocked by the network rather than switched off.
 
-## How to run it
-
-1. Clone the repository.
-2. Open a terminal in the project folder.
-3. Run the main file with Python 3 to start menu mode, or add an option to use command-line mode.
-
 ## Data file
 
 The servers are stored in a JSON file in the project folder. You can choose a different file by setting an environment variable before starting the program. The program reads the variable at startup, and if it is not set, the default file is used.
