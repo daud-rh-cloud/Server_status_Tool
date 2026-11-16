@@ -19,7 +19,7 @@ All changes are saved right away, so nothing is lost when the program is closed.
 
 **Menu mode:** start the program without any arguments. A numbered menu appears. Pick an option by typing its number. The menu keeps coming back until you choose to exit. Invalid choices give a message and the menu is shown again.
 
-**Command-line mode:** start the program with an option. It does that one job and then exits. This mode is useful in scripts, scheduled jobs and CI/CD pipelines.
+**Command-line mode:** start the program with an option. It does that one job and then exits.  
 
 To see every available option and what it does, run the main file with `--help`.
 
