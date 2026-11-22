@@ -13,17 +13,21 @@ def controll_all(path):
         new_file = []
         exit_code = 0
         for line in data:
-            hostname = line["address"]
-            x = subprocess.run(["ping", "-c" ,"1" ,hostname ] )
-            returncode = x.returncode
+            hostname = line["adress"]
+            try:
+                x = subprocess.run(["ping", "-c" ,"1" ,hostname ], capture_output=True, timeout=5)
+                returncode = x.returncode
+            except subprocess.TimeoutExpired:
+                # no answer within 5 seconds counts as down
+                returncode = 1
             
             try  : 
                 if returncode == 0: 
-                    print (line["name"], "service is UP!.. ")
-                    new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "up",  "last_checked": now})
+                    print (line["namn"], "service is UP!.. ")
+                    new_file.append({"namn": line["namn"], "adress": line["adress"], "miljo": line["miljo"], "roll": line["roll"], "status" : "up",  "senast_kontrollerad": now})
                 else:
-                    print (line["name"], "service is DOWN!.. ")
-                    new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "down",  "last_checked": now})
+                    print (line["namn"], "service is DOWN!.. ")
+                    new_file.append({"namn": line["namn"], "adress": line["adress"], "miljo": line["miljo"], "roll": line["roll"], "status" : "down",  "senast_kontrollerad": now})
                     exit_code = 1
             except Exception as e  :
                 print (e)
@@ -31,7 +35,7 @@ def controll_all(path):
     new_file = json.dumps(new_file, indent=2 )
     with open (path , "w") as f:
         f.write (new_file)
-        sys.exit(exit_code)
+        return  exit_code
 
         
         
@@ -49,37 +53,38 @@ def controll_by_name (path, keyword ):
         exit_code=0
         
         for line in data:
-            if line.get("name") == keyword:
+            if line.get("namn") == keyword:
                 selected_name = keyword
         
         if selected_name == None: 
              print("The Server Does't exist!")   
-             exit_code = 1 
-             sys.exit(exit_code)
+             exit_code = 1
+             return exit_code
+             
            
         for line in data:
-                    if line["name"] == keyword :
-                        hostname = line["address"]
-                        x = subprocess.run(["ping", "-c" ,"1" ,hostname ] )
+                    if line["namn"] == keyword :
+                        hostname = line["adress"]
+                        x = subprocess.run(["ping", "-c" ,"1" ,hostname ], capture_output=True, timeout=5)
                         returncode = x.returncode
                     
                         try : 
                             if returncode == 0:
-                                print (line["name"], "service is UP!.. ")
-                                new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "up",  "last_checked": now})
+                                print (line["namn"], "service is UP!.. ")
+                                new_file.append({"namn": line["namn"], "adress": line["adress"], "miljo": line["miljo"], "roll": line["roll"], "status" : "up",  "senast_kontrollerad": now})
                             else :
-                                print (line["name"], "service is Down!.. ")
-                                new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : "down",  "last_checked": now})
+                                print (line["namn"], "service is Down!.. ")
+                                new_file.append({"namn": line["namn"], "adress": line["adress"], "miljo": line["miljo"], "roll": line["roll"], "status" : "down",  "senast_kontrollerad": now})
                                 exit_code = 1
                         except Exception as e: 
                             print (e)
                     
                     else :
                             #if this is not the desired server, then write it back as it was 
-                            new_file.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : line ["status"],  "last_checked": line["last_checked"]})
+                            new_file.append({"namn": line["namn"], "adress": line["adress"], "miljo": line["miljo"], "roll": line["roll"], "status" : line ["status"],  "senast_kontrollerad": line["senast_kontrollerad"]})
          
        
         new_file = json.dumps(new_file, indent=2 )
         with open (path, 'w')as f: 
             f.write (new_file)
-            sys.exit(exit_code)
+            return (exit_code)

@@ -6,8 +6,8 @@ import os
 
 
 date = datetime.datetime.now().strftime("%Y-%m-%d_%H%M")
-report_file = f"Reports/inventering_{date}.csv"
-reportfolder = "Reports"
+report_file = f"rapporter/inventering_{date}.csv"
+reportfolder = "rapporter"
 
 if os.path.exists(reportfolder):
     pass
@@ -15,9 +15,12 @@ else:
     os.mkdir(reportfolder)
 
 
-def wrtieCsvFile(path):
+def write_csv_file(path):
     with open (path, "r") as f:
         data = json.load(f)
+        if not data:
+          print ("No servers to export, the list is empty.")
+          return  None 
     
     if os.path.exists(report_file):
         os.remove(report_file)

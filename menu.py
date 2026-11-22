@@ -16,22 +16,26 @@ def visa_meny():
     return (user_input)
 
 
+def print_header():
+    print (f"{"Name":<15}{"Address":<15}{"miljo":<15}{"roll":<15}{"Status":<15}{"Last checked":<15}")
+    print ("-----------------------------------------------------------------------------------------------" )
 
 
-def printallserver (f):
+def print_all_servers (f):
     data = json.load(f)
+    print_header()
     for line in data : 
-        print (f"-- Name:{line["name"]:<11}, Address:{line["address"]:<11}, Environment:{line["environment"]:>11}, Role:{line["role"]:<11}, status: {line["status"]:<11} , Last checked :{line["last_checked"]:<11} ")
-        print ()
+        print (f"{line["namn"]:<15}{line["adress"]:<15}{line["miljo"]:<15}{line["roll"]:<15}{line["status"]:<15}{line["senast_kontrollerad"]:<15}")
+         
         
         
 
-def ShowserverinEnv(f, env):
+def show_servers_in_env(f, env):
         data = json.load(f)
+        print_header()
         for line in data:
-            if line["environment"] == env:
-                print (f"Name:{line["name"]:<11}, Address:{line["address"]:<11}, Environment:{line["environment"]:<11}, Role:{line["role"]:<11}, status: {line["status"]:<11} , Last checked :{line["last_checked"]:<11} ")
-            else :
+            if line["miljo"] == env:
+                print (f"{line["namn"]:<15}{line["adress"]:<15}{line["miljo"]:<15}{line["roll"]:<15}{line["status"]:<15}{line["senast_kontrollerad"]:<15}")        
                 continue 
         
         
@@ -41,6 +45,9 @@ def ShowserverinEnv(f, env):
         
 def add_server(path, f, name,address,environment,role):
     data = json.load(f)
+    if not name.strip():
+        print ("Name can not be empty!")
+        return None
     environment_list= ["prod", "test", "dev"]
     environment = environment.lower()
     
@@ -53,14 +60,14 @@ def add_server(path, f, name,address,environment,role):
     
     if name :
         for server in data:
-            if server.get("name") == name: 
+            if server.get("namn") == name: 
                 print ("ServerName Already taken")
                 return None 
      
     
         
     
-    data.append({"name": name, "address": address, "environment": environment, "role": role, "status": "unknown", "last_checked": ""})
+    data.append({"namn": name, "adress": address, "miljo": environment, "roll": role, "status": "unknown", "senast_kontrollerad": ""})
     data= json.dumps (data, indent=2 )
     with open (path, "w") as f:
         f.write(data)
@@ -76,7 +83,7 @@ def remove_server(f,path,name,input_address):
     searching_adress = None
     
     for line in data :
-        if line ["address"] == input_address:
+        if line ["adress"] == input_address:
             searching_adress = input_address 
         else :
             continue
@@ -87,7 +94,7 @@ def remove_server(f,path,name,input_address):
         
      user_confirmation = "y"
      for line in data:
-        if line ["environment"] == "prod" and line ["name"] == name:
+        if line ["miljo"] == "prod" and line ["namn"] == name:
             user_confirmation = input ("Are you Sure you want to remove it? y/n?")
             if user_confirmation != "y":
                 print("Removal cancelled")
@@ -95,14 +102,14 @@ def remove_server(f,path,name,input_address):
         
         else :
                 
-            if  line["address"] != input_address and line["name"] == name: 
+            if  line["adress"] != input_address and line["namn"] == name: 
                 print ("No Host match with this name!")
                 return None 
-            elif line["address"]== input_address and line["name"] != name: 
+            elif line["adress"]== input_address and line["namn"] != name: 
                 print ("No host with thats name Exist! ")
                 return None
-            elif line["address"] != input_address and user_confirmation == "y":             
-                newdata.append({"name": line["name"], "address": line["address"], "environment": line["environment"], "role": line["role"], "status" : line["status"],  "last_checked": line["last_checked"]})
+            elif line["adress"] != input_address and user_confirmation == "y":             
+                newdata.append({"namn": line["namn"], "adress": line["adress"], "miljo": line["miljo"], "roll": line["roll"], "status" : line["status"],  "senast_kontrollerad": line["senast_kontrollerad"]})
             
      print (f"Server {name} has been Removed")
      newdata = json.dumps(newdata, indent=2)
@@ -122,12 +129,12 @@ def remove_server(f,path,name,input_address):
         
 
 ## A additonal funtion i made to match Command line (arg] ->env)
-def ShowAlllenv(path):
+def show_all_env(path):
     with open (path, "r")as f: 
         data = json.load(f)
         
         envoirments = []
         for env in data:
-            envoirments.append (env["environment"])
+            envoirments.append (env["miljo"])
             
     return envoirments

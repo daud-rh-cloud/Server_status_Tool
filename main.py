@@ -5,14 +5,14 @@ from argparse import ArgumentParser
 import subprocess 
 import controller 
 import argparse 
-import CSVwritter
+import csv_writer
  
 def main ():
     
     if "INVENTORY_DATAFIL" in os.environ:
         path = os.environ.get("INVENTORY_DATAFIL")
     else:
-        path = "server.json"
+        path =  "servrar.json"
         
     if not os.path.exists(path):
         with open(path, "w") as f:
@@ -30,9 +30,9 @@ def main ():
         parser = argparse.ArgumentParser()
 
         parser.add_argument("--list", "--lista",action= "store_true", help= "Lists All Server" )
-        parser.add_argument("--env", "--miljo", choices=menu.ShowAlllenv(path), help="--list --env [name]/ (List server in Env XYZ ")
+        parser.add_argument("--env", "--miljo", choices=menu.show_all_env(path), help="--list --env [name]/ (List server in Env XYZ ")
         parser.add_argument("--controll-all", "--kontrollera-alla", action = "store_true", help=("Cheaks All server status" ))
-        parser.add_argument("--controll","--kontrollera", metavar="name", help=("Cheaks server Specefic servers Status"))
+        parser.add_argument("--controll","--kontrollera", metavar="namn", help=("Cheaks server Specefic servers Status"))
         parser.add_argument("--export", action="store_true",help="Exports CSV Report")
 
         #reading and parsing the user arguments from Sys.argv[]
@@ -42,24 +42,24 @@ def main ():
       
         if user_argument.list and user_argument.env :
                 with open (path, "r") as f:
-                    menu.ShowserverinEnv(f,user_argument.env)
+                    menu.show_servers_in_env(f,user_argument.env)
 
         elif  user_argument.list: 
             with open (path, "r") as f :
-                    menu.printallserver(f)
+                    menu.print_all_servers(f)
 
         elif user_argument.controll_all:
-            with open (path, "r") as f :
-                controller.controll_all(path)
+            exit_code = controller.controll_all(path)
+            sys.exit(exit_code)
                 
         elif user_argument.controll: 
-            with open (path, "r") as f :
-                controller.controll_by_name(path, keyword=user_argument.controll)
+            exit_code = controller.controll_by_name(path, keyword=user_argument.controll)
+            sys.exit(exit_code)
 
         elif user_argument.export:
             
                 print ("CSV Report Has been Exported")
-                CSVwritter.wrtieCsvFile(path) 
+                csv_writer.write_csv_file(path) 
 
 
 
@@ -69,7 +69,7 @@ def main ():
             
             if user_input == "1": 
                 with open (path, "r") as f :
-                    menu.printallserver(f)
+                    menu.print_all_servers(f)
             
             
             elif user_input == "2" :
@@ -79,7 +79,7 @@ def main ():
                     print ("invalid Env!!")
              else :
                  with open (path, "r") as f :
-                    menu.ShowserverinEnv(f, env=env) 
+                    menu.show_servers_in_env(f, env=env) 
             
             
             elif user_input == "3": 
@@ -111,7 +111,7 @@ def main ():
         
             elif user_input== "7":
                 print ("CSV Report Has been Exported")
-                CSVwritter.wrtieCsvFile(path)  
+                csv_writer.write_csv_file(path)  
             
             elif user_input == "8":
                 print ("Bye ")
